@@ -21,16 +21,20 @@ export async function getFamilies() {
 export async function deleteBunny(id) {
     const response = await client.from('fuzzy_bunnies').delete().eq('id', id);
     if (response.error) {
-        checkError(response);
+        return checkError(response);
     } else {
-        response.data; 
+        response.data;
     }
 }
 
-export async function createBunny(bunny) {
+export async function createBunny(bunny, id) {
     // create a bunny using the bunny argument
-
-    return checkError(response);
+    const response = await client.from('fuzzy_bunnies').insert(bunny, id);
+    if (response.error) {
+        checkError(response);
+    } else {
+        response.data;
+    }
 }
 
 // MARTHA STEWART (PRE-MADE) FUNCTIONS
