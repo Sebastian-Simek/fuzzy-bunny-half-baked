@@ -7,30 +7,30 @@ import {
 
 const form = document.querySelector('.bunny-form');
 const logoutButton = document.getElementById('logout');
+const select = document.getElementById('family-id');
 
-form.addEventListener('submit', async e => {
-    // prevent default
-
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
     // get the name and family id from the form
-
-    // use createBunny to create a bunny with this name and family id
-    
+    const newBunny = {
+        name: data.get('bunny-name'),
+        family_id: data.get('family-id')
+    };
     form.reset();
+    createBunny(newBunny);
+    
 });
 
-window.addEventListener('load', async() => {
-    // let's dynamically fill in the families dropdown from supabase
-    // grab the select HTML element from the DOM
+window.addEventListener('load', async () => {
+    const families = await getFamilies();
 
-    // go get the families from supabase
-
-    // for each family
-
-    // create an option tag
-
-    // set the option's value and text content
-
-    // and append the option to the select
+    for (let family of families) {
+        const option = document.createElement('option');
+        option.value = family.id;
+        option.textContent = family.name;
+        select.append(option);
+    }
 });
 
 
